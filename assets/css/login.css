@@ -1,0 +1,372 @@
+/* login.css
+   Estilos para la pantalla de inicio de sesión.
+   Nombres de clases claros y organizados.
+*/
+
+/* Variables de color */
+:root{
+  --green-900: #002f0c;
+  --green-800: #004900;
+  --green-700: #007101;
+  --green-500: #00a733;
+  --green-300: #00e883;
+
+  --card-bg: rgba(255,255,255,0.82);
+  --muted: #6e7b6b;
+  --accent: #0f7f34;
+  --input-border: rgba(75,88,73,0.15);
+  --focus-ring: rgba(0,141,46,0.18);
+  --shadow: 0 10px 30px rgba(11,26,12,0.25);
+  --radius-lg: 14px;
+  --radius-md: 10px;
+}
+
+/* Reset ligero */
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;
+  font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  color:#1f2b21;
+  min-height:100vh;
+  line-height:1.35;
+  background: linear-gradient(
+    225deg,
+    var(--green-900) 0%,
+    var(--green-800) 25%,
+    var(--green-700) 50%,
+    var(--green-500) 75%,
+    var(--green-300) 100%
+  );
+  position:relative;
+  overflow:hidden;
+}
+
+/* Decorations (subtle, blurred shapes) */
+.decor{
+  position:absolute;
+  pointer-events:none;
+  filter: blur(40px);
+  opacity:0.14;
+  transform:translate3d(0,0,0);
+}
+
+.decor--c1{
+  width:420px;
+  height:420px;
+  background: radial-gradient(circle at 30% 30%, rgba(0,232,131,0.65), rgba(0,167,1,0.15) 40%, transparent 60%);
+  top:-90px;
+  left:-120px;
+  border-radius:50%;
+  opacity:0.9;
+  filter: blur(60px);
+}
+
+.decor--c2{
+  width:360px;
+  height:360px;
+  background: radial-gradient(circle at 70% 70%, rgba(0,121,1,0.45), rgba(0,73,0,0.08) 45%, transparent 70%);
+  bottom:-100px;
+  right:-90px;
+  border-radius:50%;
+  opacity:0.85;
+  filter: blur(56px);
+}
+
+.decor--shape{
+  width:260px;
+  height:160px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  top:20%;
+  right:6%;
+  transform: rotate(28deg);
+  border-radius:18px;
+  opacity:0.12;
+  filter: blur(24px);
+}
+
+/* Layout: center the card */
+.page-root{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+}
+
+/* Login container */
+.login-wrap{
+  width:100%;
+  max-width:980px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Card */
+.login-card{
+  width:100%;
+  max-width:720px;
+  border-radius:var(--radius-lg);
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  padding:26px;
+  backdrop-filter: blur(8px) saturate(110%);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.28);
+  display:flex;
+  flex-direction:column;
+}
+
+/* Header */
+.card-header{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding-bottom:14px;
+  border-bottom:1px solid rgba(75,88,73,0.06);
+}
+
+/* En pantallas pequeñas: logo arriba, título abajo */
+@media (max-width:580px){
+  .card-header{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:10px;
+  }
+  .logo-area{
+    width:64px;
+    height:64px;
+  }
+  .cecyte-logo{
+    max-width:64px;
+    max-height:64px;
+  }
+}
+
+.logo-area{
+  width:72px;
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+
+.cecyte-logo{
+  max-width:72px;
+  max-height:72px;
+  width:auto;
+  height:auto;
+  display:block;
+}
+
+.logo-fallback{
+  width:72px;
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg, rgba(11,106,38,0.95), rgba(0,113,37,0.85));
+  border-radius:10px;
+  box-shadow: inset 0 -6px 12px rgba(0,0,0,0.08);
+}
+
+/* Brand texts */
+.brand-text{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.brand-title{
+  margin:0;
+  font-size:20px;
+  font-weight:600;
+  color:#13271c;
+}
+
+.brand-subtitle{
+  margin:0;
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* Body */
+.card-body{
+  padding:20px 6px 6px 6px;
+}
+
+/* Welcome */
+.welcome-title{
+  margin:8px 0 2px 0;
+  font-size:18px;
+  color:#16321f;
+}
+
+.welcome-desc{
+  margin:0 0 14px 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* Form */
+.login-form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.input-group{
+  width:100%;
+}
+
+.input-with-icon{
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+
+.input-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:44px;
+  height:44px;
+  margin-right:8px;
+  border-radius:10px;
+  background:transparent;
+  color:#2B6B2E;
+  flex-shrink:0;
+}
+
+.form-input{
+  flex:1 1 auto;
+  min-height:44px;
+  padding:10px 46px 10px 10px;
+  border-radius:10px;
+  border:1px solid var(--input-border);
+  background:rgba(255,255,255,0.9);
+  font-size:15px;
+  outline:none;
+  transition: box-shadow .18s ease, border-color .18s ease, transform .06s ease;
+  color:#13321d;
+}
+
+/* Place the icon visually at start */
+.input-with-icon > .input-icon{
+  position:absolute;
+  left:8px;
+  pointer-events:none;
+}
+
+/* Adjust input padding when icon present */
+.input-with-icon > .form-input{
+  padding-left:56px;
+}
+
+/* Toggle password button */
+.toggle-password{
+  position:absolute;
+  right:8px;
+  background:transparent;
+  border:0;
+  height:36px;
+  width:36px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  cursor:pointer;
+  transition: background .12s ease, transform .08s ease;
+  color:var(--accent);
+}
+
+.toggle-password:focus{
+  box-shadow: 0 0 0 6px var(--focus-ring);
+  outline: none;
+}
+
+/* Focus states for inputs */
+.form-input:focus{
+  border-color: rgba(6,120,49,0.9);
+  box-shadow: 0 6px 18px rgba(6,120,49,0.08);
+  transform: translateY(-1px);
+}
+
+/* Buttons */
+.form-actions{
+  margin-top:8px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border:0;
+  cursor:pointer;
+  padding:12px 16px;
+  font-size:15px;
+  border-radius:10px;
+  transition: transform .08s ease, box-shadow .12s ease, background .12s ease;
+  user-select:none;
+}
+
+.btn-primary{
+  width:100%;
+  background: linear-gradient(180deg, #0f7f34, #0d6f2d);
+  color:#fff;
+  box-shadow: 0 8px 18px rgba(6,120,49,0.18);
+}
+
+.btn-primary:hover{
+  transform: translateY(-2px);
+}
+
+.btn-primary:active{
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(6,120,49,0.16);
+}
+
+/* Footer */
+.card-footer{
+  margin-top:14px;
+  padding-top:10px;
+  border-top:1px solid rgba(75,88,73,0.04);
+  text-align:right;
+  color:var(--muted);
+}
+
+/* Accessibility helpers */
+.visually-hidden{
+  position:absolute!important;
+  height:1px;width:1px;
+  overflow:hidden;
+  clip:rect(1px,1px,1px,1px);
+  white-space:nowrap;
+}
+
+/* Small screens: compact the card */
+@media (max-width:900px){
+  .login-card{
+    padding:18px;
+    border-radius:12px;
+  }
+  .logo-area{ width:60px; height:60px; }
+  .brand-title{ font-size:18px; }
+}
+
+/* Very small screens (mobile) */
+@media (max-width:680px){
+  .page-root{ padding:18px; }
+  .login-card{ max-width:420px; padding:14px; }
+  .logo-area{ width:64px; height:64px; }
+  .input-icon{ width:40px; height:40px; left:6px; }
+  .form-input{ min-height:44px; font-size:15px; }
+  .brand-title{ font-size:16px; }
+  .welcome-title{ font-size:16px; }
+}
