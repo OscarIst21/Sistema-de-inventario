@@ -1,0 +1,211 @@
+/* ==========================================
+   MÓDULO: ÁREAS DE RESPONSABILIDAD
+   ========================================== */
+
+/* Contenedor principal: ocupa todo el espacio disponible */
+.module-area-areas {
+  width: 100%;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 0;
+}
+
+/* Encabezado del módulo: icono + título + breadcrumb */
+.areas-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.areas-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.areas-icon {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(0, 107, 43, 0.10);
+  color: var(--green-700);
+}
+
+.areas-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.areas-title {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--green-900);
+  line-height: 1.2;
+}
+
+/* Breadcrumb interno del módulo */
+.areas-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.areas-breadcrumb .bc-link {
+  color: var(--green-700);
+  font-weight: 600;
+}
+
+.areas-breadcrumb .bc-current {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.areas-breadcrumb .bc-sep {
+  color: #b9c6ba;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Zona de la tabla: crece hasta el espacio disponible */
+.areas-table-wrap {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  overflow: auto;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Tabla */
+.areas-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  table-layout: fixed;
+}
+
+.areas-table th,
+.areas-table td {
+  padding: 11px 14px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border-soft);
+  word-break: break-word;
+}
+
+/* Encabezado verde oscuro con texto blanco */
+.areas-table thead th {
+  background: #006b2b;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+/* Ajuste de anchos de columna */
+.areas-table .col-clave { width: 80px; text-align: center; }
+.areas-table .col-desc  { width: auto; }
+.areas-table .col-localidad { width: 35%; }
+.areas-table .col-nivel { width: 120px; text-align: center; }
+
+/* Filas alternadas: blanco / gris verdoso muy claro */
+.areas-table tbody tr.row-even { background: var(--surface); }
+.areas-table tbody tr.row-odd  { background: #f3f7f3; }
+
+.areas-table tbody tr:hover {
+  background: rgba(0, 167, 51, 0.07);
+}
+
+.areas-table td {
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.areas-table td.col-clave,
+.areas-table td.col-nivel {
+  vertical-align: middle;
+}
+
+/* Pie de acciones: botón Imprimir al final, siempre visible */
+.areas-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+  padding-top: 4px;
+}
+
+/* Botón Imprimir (visual, sin acción por ahora) */
+.btn-print {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border: 1px solid var(--green-500);
+  border-radius: var(--radius-md);
+  background: var(--green-700);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-print:hover {
+  background: var(--green-800);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-print:active { transform: scale(0.97); }
+
+.btn-print:focus-visible {
+  outline: 2px solid var(--green-300);
+  outline-offset: 2px;
+}
+
+.btn-print .btn-print-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-print .btn-print-text {
+  white-space: nowrap;
+}
+
+/* Responsive: la tabla se desplaza horizontalmente en móviles */
+@media (max-width: 760px) {
+  .areas-title { font-size: 1.12rem; }
+  .areas-icon { width: 40px; height: 40px; }
+  .areas-table-wrap { border-radius: 8px; }
+  .areas-table th,
+  .areas-table td { padding: 9px 10px; font-size: 0.85rem; }
+  .areas-table { min-width: 600px; table-layout: auto; }
+}
+
+@media (max-width: 560px) {
+  .module-area-areas { gap: 14px; }
+  .areas-header { flex-direction: column; align-items: flex-start; }
+  .areas-title-wrap { width: 100%; }
+}

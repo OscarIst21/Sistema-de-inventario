@@ -1,0 +1,23 @@
+/* ==========================================
+   MÓDULO: COLORES
+   (Reutiliza estilos del módulo Áreas de Responsabilidad)
+   ========================================== */
+
+.module-area-colores {
+  width: 100%;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 0;
+  height: 100%;
+}
+
+.module-area-colores .areas-table {
+  width: 100%;
+  table-layout: auto;
+}
+
+.module-area-colores .areas-table thead th.col-clave { width: 150px; text-align: center; }
+.module-area-colores .areas-table thead th.col-desc  { width: auto; }
+.module-area-colores .areas-table tbody td.col-clave { text-align: center; }
