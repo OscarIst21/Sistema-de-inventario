@@ -68,7 +68,11 @@ document.addEventListener('DOMContentLoaded', function () {
     chevron:    svg('<path d="M6 9l6 6 6-6"/>', 14),
     arrowRight: svg('<path d="M9 18l6-6-6-6"/>', 13),
     inbox:      svg('<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13L22 12v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"/>', 30),
-    hammer:     svg('<path d="M14 7l3-3 4 4-3 3-4-4z"/><path d="M13 8L4 17l3 3 9-9"/><path d="M8 12l-5 5 4 4 5-5"/>', 15)
+    hammer:     svg('<path d="M14 7l3-3 4 4-3 3-4-4z"/><path d="M13 8L4 17l3 3 9-9"/><path d="M8 12l-5 5 4 4 5-5"/>', 15),
+    // Módulo Áreas de Responsabilidad
+    building:   svg('<path d="M4 21h16M5 21V8l7-5 7 5v13"/><path d="M9 21v-4h6v4"/><path d="M9 12h1.5v3H9zM13.5 12h1.5v3h-1.5z"/>', 18),
+    print:      svg('<path d="M6 9V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v5"/><path d="M5 11h14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2z"/><path d="M9 15h6"/>', 18),
+    chevronSmall: svg('<path d="M6 9l6 6 6-6"/>', 12)
   };
 
   /* ============================================================
@@ -305,6 +309,38 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ============================================================
+   * 6b. Datos del módulo "Áreas de Responsabilidad"
+   * Solo visually data. No inventar claves faltantes ni completar
+   * datos que no estén especificados. Orden conservado.
+   * ============================================================ */
+  const AREAS_DATA = [
+    { clave: '12',         description: 'CECYT 11',            localidad: 'LA PAZ, EL CENTENARIO',        nivel: 'PLANTELES' },
+    { clave: '',           description: 'EMSAD 09',            localidad: 'COMONDÚ, BENITO JUÁREZ',      nivel: 'PLANTELES' },
+    { clave: '',           description: 'EMSAD 10',            localidad: 'COMONDÚ, ADOLFO LÓPEZ MATEOS', nivel: 'PLANTELES' },
+    { clave: '',           description: 'EMSAD 11',            localidad: 'COMONDÚ, SAN ISIDRO',          nivel: 'PLANTELES' },
+    { clave: '',           description: 'CECYTE 04',           localidad: 'LOS CABOS, SAN JOSÉ DEL CABO', nivel: 'PLANTELES' },
+    { clave: '',           description: 'CECYTE 05',           localidad: 'LOS CABOS, CABO SAN LUCAS',    nivel: 'PLANTELES' },
+    { clave: '',           description: 'EMSAD 12',            localidad: 'LA PAZ, LAS POCITAS',          nivel: 'PLANTELES' },
+    { clave: '',           description: 'EMSAD 13',            localidad: 'LA PAZ, COL. VILLAS DE GPE.',  nivel: 'PLANTELES' },
+    { clave: '',           description: 'CECYTE 07',           localidad: 'LOS CABOS, SAN JOSÉ DEL CABO', nivel: 'PLANTELES' },
+    { clave: '',           description: 'CECYTE 08',           localidad: 'LA PAZ, LA PAZ BCS.',          nivel: 'PLANTELES' },
+    { clave: '',           description: 'EMSAD 14',            localidad: '',                             nivel: '' },
+    { clave: '',           description: 'CECYT 10',            localidad: 'LA PAZ, E. MELITÓN ALBÁÑEZ',   nivel: 'PLANTELES' },
+    { clave: '',           description: 'EMSAD 16',            localidad: 'COMONDÚ, CIUDAD CONSTITUCIÓN', nivel: 'PLANTELES' }
+  ];
+
+  /* Escapa contenido para evitar inyección al inyectar HTML */
+  function esc(text) {
+    if (text == null) return '';
+    return String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  /* ============================================================
    * 7. Renderizado de vistas (sin recargar la página)
    * ============================================================ */
 
@@ -394,9 +430,84 @@ document.addEventListener('DOMContentLoaded', function () {
     mainContent.appendChild(cards);
   }
 
+  /** Vista del módulo "Áreas de Responsabilidad": tabla + botón Imprimir */
+  function renderAreasView() {
+    mainContent.innerHTML = '';
+
+    const area = document.createElement('section');
+    area.className = 'module-area module-area-areas';
+    area.setAttribute('aria-label', 'Módulo Áreas de Responsabilidad');
+
+    let html =
+      '<div class="areas-header">' +
+        '<div class="areas-title-wrap">' +
+          '<span class="areas-icon">' + ICON.building + '</span>' +
+          '<div class="areas-titles">' +
+            '<h2 class="areas-title">Áreas de Responsabilidad</h2>' +
+            '<nav class="areas-breadcrumb" aria-label="Ruta de navegación">' +
+              '<span class="bc-link">Inicio</span>' +
+              '<span class="bc-sep" aria-hidden="true">' + ICON.chevronSmall + '</span>' +
+              '<span class="bc-link">Catálogos</span>' +
+              '<span class="bc-sep" aria-hidden="true">' + ICON.chevronSmall + '</span>' +
+              '<span class="bc-current" aria-current="page">Áreas de Responsabilidad</span>' +
+            '</nav>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="areas-table-wrap">' +
+        '<table class="areas-table" aria-label="Áreas de Responsabilidad">' +
+          '<thead>' +
+            '<tr>' +
+              '<th scope="col" class="col-clave">CLAVE</th>' +
+              '<th scope="col" class="col-desc">DESCRIPCIÓN</th>' +
+              '<th scope="col" class="col-localidad">LOCALIDAD</th>' +
+              '<th scope="col" class="col-nivel">NIVEL</th>' +
+            '</tr>' +
+          '</thead>' +
+          '<tbody>';
+
+    AREAS_DATA.forEach(function (row, idx) {
+      const zebra = idx % 2 === 0 ? 'row-even' : 'row-odd';
+      html +=
+        '<tr class="' + zebra + '">' +
+          '<td class="col-clave">' + (row.clave ? esc(row.clave) : '&nbsp;') + '</td>' +
+          '<td class="col-desc">' + (row.description ? esc(row.description) : '&nbsp;') + '</td>' +
+          '<td class="col-localidad">' + (row.localidad ? esc(row.localidad) : '&nbsp;') + '</td>' +
+          '<td class="col-nivel">' + (row.nivel ? esc(row.nivel) : '&nbsp;') + '</td>' +
+        '</tr>';
+    });
+
+    html +=
+        '</tbody>' +
+      '</table>' +
+      '</div>' +
+      '<div class="areas-actions">' +
+        '<button type="button" class="btn btn-print" id="areasPrintBtn" aria-label="Imprimir áreas de responsabilidad">' +
+          '<span class="btn-print-icon">' + ICON.print + '</span>' +
+          '<span class="btn-print-text">Imprimir</span>' +
+        '</button>' +
+      '</div>';
+
+    area.innerHTML = html;
+    mainContent.appendChild(area);
+
+    // El botón es visual por ahora: no ejecuta acción alguna.
+    const printBtn = area.querySelector('#areasPrintBtn');
+    if (printBtn) {
+      printBtn.addEventListener('click', function () {
+        // Preparado para una futura implementación. No hacer nada por ahora.
+      });
+    }
+  }
+
   /** Vista genérica de módulo: contenedor vacío, preparado para desarrollarse */
   function renderModuleView(cat, item) {
     mainContent.innerHTML = '';
+
+    if (item.id === 'areas-responsabilidad') {
+      renderAreasView();
+      return;
+    }
 
     const area = document.createElement('section');
     area.className = 'module-area';
